@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>root@woli:~$ Walter Omwangu </title>
+<title>WalterOmwangu</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -40,9 +40,96 @@ overflow-x:hidden;
 }
 
 /* ========================================= */
-/* BACKGROUND EFFECTS */
+/* ANIMATED BACKGROUND - NEW (enhanced version) */
 /* ========================================= */
 
+/* Canvas background layer */
+#cyber-bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    display: block;
+    background: #050816; /* fallback matches :root --bg */
+}
+
+/* Additional animated glow orbs (CSS-only to complement canvas) */
+.animated-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.3;
+    animation: floatOrb 22s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0,240,255,0.35), rgba(0,240,255,0));
+    top: -150px;
+    left: -200px;
+    animation-duration: 28s;
+}
+
+.orb-2 {
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(139,92,246,0.3), rgba(139,92,246,0));
+    bottom: -250px;
+    right: -150px;
+    animation-duration: 35s;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(0,255,149,0.2), rgba(0,255,149,0));
+    top: 40%;
+    left: 65%;
+    animation-duration: 40s;
+    animation-delay: -10s;
+}
+
+@keyframes floatOrb {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.2;
+    }
+    100% {
+        transform: translate(80px, 60px) scale(1.2);
+        opacity: 0.35;
+    }
+}
+
+/* subtle grid pulse overlay (optional but fits cyber look) */
+.grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 45px 45px;
+    z-index: -1;
+    pointer-events: none;
+    animation: gridFlicker 12s infinite;
+}
+
+@keyframes gridFlicker {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+}
+
+/* ========================================= */
+/* BACKGROUND EFFECTS (original gradients) – disable or keep? we keep but modify slightly to blend with canvas */
+/* original gradients become additional dynamic layers but we set lower opacity so canvas shines */
 body::before{
 content:'';
 position:fixed;
@@ -51,8 +138,9 @@ height:700px;
 background:radial-gradient(circle,var(--accent2),transparent 70%);
 top:-250px;
 right:-250px;
-opacity:.15;
+opacity:.12;
 z-index:-1;
+animation: pulseGlow 18s infinite alternate;
 }
 
 body::after{
@@ -63,8 +151,18 @@ height:700px;
 background:radial-gradient(circle,var(--accent),transparent 70%);
 bottom:-250px;
 left:-250px;
-opacity:.12;
+opacity:.1;
 z-index:-1;
+animation: pulseGlowReverse 20s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.08; transform: scale(1);}
+    100% { opacity: 0.18; transform: scale(1.05);}
+}
+@keyframes pulseGlowReverse {
+    0% { opacity: 0.07; transform: scale(1);}
+    100% { opacity: 0.16; transform: scale(1.08);}
 }
 
 /* ========================================= */
@@ -761,6 +859,13 @@ font-size:2rem;
 
 <body>
 
+<!-- Canvas + animated background layers -->
+<canvas id="cyber-bg-canvas"></canvas>
+<div class="animated-orb orb-1"></div>
+<div class="animated-orb orb-2"></div>
+<div class="animated-orb orb-3"></div>
+<div class="grid-overlay"></div>
+
 <div id="loader">
 <div class="terminal-loader">
 <p>> Initializing SOC Analyst Portfolio...</p>
@@ -770,6 +875,7 @@ font-size:2rem;
 <p>> Access Granted.</p>
 </div>
 </div>
+<!-- DIGITAL FINGERPRINT SCREEN -->
 
 <nav>
 <div class="nav-container">
@@ -1314,7 +1420,7 @@ I also serve as a Cisco Networking Academy Instructor, mentoring future technolo
         <!-- HackTheBox -->
         <a href="https://www.hackthebox.com/" target="_blank" style="text-decoration: none; display: flex; align-items: center; gap: 1rem; background: linear-gradient(135deg, #0a0f1c, #0f172a); padding: 0.8rem 1.8rem; border-radius: 60px; border: 1px solid #00f0ff30; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
             <div style="background: #e8e9eb; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border: 1px solid #00f0ff;">
-                <img src="https://imgs.search.brave.com/C7Ineg9GCqfc84DDkVQdMH46Y9UZ6QcICwvFn8ZrbNI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Y3Jlc3QtYXBwcm92/ZWQub3JnL3dwLWNv/bnRlbnQvdXBsb2Fk/cy91bHRpbWF0ZW1l/bWJlci8xMDg2L3N0/cmVhbV9waG90b19m/OTFkY2M2NV81NGJh/NmI0ZTkyYjI0ZGRm/NDQ0NzQyMWU3MGRi/ZTI1MWM0ZDgyOTJj/LnBuZw" alt="HTB" style="width: 28px; height: auto;">
+                <img src="https://imgs.search.brave.com/C7Ineg9GCqfc84DDkVQdMH46Y9UZ6QcICwvFn8ZrbNI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Y3Jlc3QtYXBwcm92/ZWQub3JnL3dwLWNv/bnRlbnQvdXBsb2Fk/cy91bHRpbWF0ZW1l/mJlci8xMDg2L3N0/cmVhbV9waG90b19m/OTFkY2M2NV81NGJh/NmI0ZTkyYjI0ZGRm/NDQ0NzQyMWU3MGRi/ZTI1MWM0ZDgyOTJj/LnBuZw" alt="HTB" style="width: 28px; height: auto;">
             </div>
             <div style="text-align: left;">
                 <div style="color: #9f7aea; font-size: 0.7rem; letter-spacing: 1px;">HACKTHEBOX</div>
@@ -1558,7 +1664,149 @@ if(typingLine) {
       setTimeout(typeEffect,30);
     }
   }
+  typeEffect();
 }
+
+/* ====== ENHANCED CANVAS ANIMATED BACKGROUND ====== */
+(function(){
+    const canvas = document.getElementById('cyber-bg-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    
+    function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    
+    // Particle system (digital rain meets flowing data)
+    let particles = [];
+    const PARTICLE_COUNT = 90;
+    class DataParticle {
+        constructor(){
+            this.reset();
+        }
+        reset(){
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.speedX = (Math.random() - 0.5) * 0.45;
+            this.speedY = 0.3 + Math.random() * 0.6;
+            this.size = 1 + Math.random() * 2.2;
+            this.alpha = 0.3 + Math.random() * 0.5;
+            this.color = `hsl(${170 + Math.random() * 40}, 80%, 60%)`;
+            this.life = 0.4 + Math.random() * 0.8;
+            this.glow = Math.random() > 0.7;
+        }
+        update(){
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if(this.x < -20) this.x = width + 20;
+            if(this.x > width + 20) this.x = -20;
+            if(this.y > height + 30){
+                this.y = -30;
+                this.x = Math.random() * width;
+            }
+            if(this.y < -30) this.y = height + 30;
+        }
+        draw(ctx){
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+            ctx.fillStyle = this.color;
+            ctx.shadowBlur = this.glow ? 12 : 3;
+            ctx.shadowColor = '#00f0ff';
+            ctx.globalAlpha = this.alpha * (0.7 + Math.sin(Date.now() * 0.002 + this.x) * 0.2);
+            ctx.fill();
+        }
+    }
+    
+    // add floating digits/code characters (extra layer)
+    let glyphs = [];
+    const GLYPH_COUNT = 45;
+    const chars = ['0','1','λ','#','>','~','$','%','&','@','<','/','\\','|','-','_','=','+',';',':','*'];
+    class Glyph{
+        constructor(){
+            this.reset();
+        }
+        reset(){
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.char = chars[Math.floor(Math.random() * chars.length)];
+            this.speedY = 0.2 + Math.random() * 0.5;
+            this.alpha = 0.2 + Math.random() * 0.4;
+            this.size = 12 + Math.random() * 10;
+        }
+        update(){
+            this.y += this.speedY;
+            if(this.y > height + 50){
+                this.y = -30;
+                this.x = Math.random() * width;
+                this.char = chars[Math.floor(Math.random() * chars.length)];
+            }
+        }
+        draw(ctx){
+            ctx.font = `${this.size}px "Fira Code", monospace`;
+            ctx.shadowBlur = 5;
+            ctx.shadowColor = '#00ccff';
+            ctx.globalAlpha = this.alpha * 0.55;
+            ctx.fillStyle = '#aaffdd';
+            ctx.fillText(this.char, this.x, this.y);
+        }
+    }
+    
+    for(let i=0; i<PARTICLE_COUNT; i++) particles.push(new DataParticle());
+    for(let i=0; i<GLYPH_COUNT; i++) glyphs.push(new Glyph());
+    
+    let time = 0;
+    function animateBackground(){
+        if(!ctx) return;
+        ctx.clearRect(0,0,width,height);
+        // Gradient background each frame with low opacity to keep smooth motion and matches site theme
+        const grad = ctx.createLinearGradient(0,0,width*0.8,height);
+        grad.addColorStop(0, '#050816');
+        grad.addColorStop(1, '#0a0f1f');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0,0,width,height);
+        ctx.shadowBlur = 0;
+        // draw particles (glow tech)
+        for(let p of particles){
+            p.update();
+            p.draw(ctx);
+        }
+        for(let g of glyphs){
+            g.update();
+            g.draw(ctx);
+        }
+        // draw subtle connecting lines occasionally simulating network
+        ctx.beginPath();
+        ctx.globalAlpha = 0.07;
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 0.7;
+        for(let i=0; i<particles.length; i+=3){
+            let p1 = particles[i];
+            for(let j=i+2; j<particles.length && j<i+6; j++){
+                let p2 = particles[j];
+                let dx = p1.x - p2.x;
+                let dy = p1.y - p2.y;
+                let dist = Math.hypot(dx,dy);
+                if(dist < 130){
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x,p1.y);
+                    ctx.lineTo(p2.x,p2.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
+        requestAnimationFrame(animateBackground);
+    }
+    animateBackground();
+})();
+
 </script>
 
 </body>
